@@ -3,15 +3,10 @@ const lengthOfArrayFromUser = +prompt('Введіть довжину масив�
 if (lengthOfArrayFromUser) {
     const elementsOfArrayFromUser = prompt('Введіть елементи масива через пробіл:');
     const arrayNumbers = elementsOfArrayFromUser.split(' ');
-    console.log('Масив до сортування:', arrayNumbers);
+    let isNanInElArray = arrayNumbers.every(element => isFinite(element));
 
-    if (lengthOfArrayFromUser === arrayNumbers.length) {
-        for (let indexArray = 0; indexArray < arrayNumbers.length; indexArray++) {
-            if (isNaN(arrayNumbers[indexArray])) {
-                console.log('Неправильні дані');
-            } 
-        }
-
+    if (lengthOfArrayFromUser === arrayNumbers.length && isNanInElArray) {
+        console.log('Масив до сортування:', arrayNumbers);
         const sortedArrayNumbers = arrayNumbers.toSorted((a, b) => a - b );
         console.log('Масив після сортування:', sortedArrayNumbers);
         sortedArrayNumbers.splice(1, 3);
@@ -19,7 +14,9 @@ if (lengthOfArrayFromUser) {
 
     } else if (lengthOfArrayFromUser < arrayNumbers.length || lengthOfArrayFromUser > arrayNumbers.length) {
         console.log('Невідповідність довжини масива та кількості елементів!');
-    } 
+    } else {
+        console.log('У масиві є NaN');
+    }
 } else {
     console.log('Щось пішло не так!');
 }
